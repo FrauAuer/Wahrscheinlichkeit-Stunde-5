@@ -164,6 +164,7 @@
     <div class="card">
       <h2>Unsere Ergebnisse als Säulendiagramm</h2>
       <div class="chart" id="chart"></div>
+      <p text-align="center"><strong>Augensumme</strong></p>
     </div>
 
     <div class="card">
@@ -245,7 +246,7 @@
         const label = document.createElement('div');
         label.className = 'bar-label';
 
-        const labels = ['Augensumme 2', 'Augensumme 3', 'Augensumme 4', 'Augensumme 5', 'Augensumme 6', 'Augensumme 7', 'Augensumme 8', 'Augensumme 9', 'Augensumme 10', 'Augensumme 11', 'Augensumme 12'];
+        const labels = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
         label.textContent = labels[index];
 
         wrap.appendChild(valueLabel);
@@ -260,7 +261,7 @@
       emptyText.style.display = groups.length ? 'none' : 'block';
 
       groups
-        .sort((a, b) => (a.groupName || '').localeCompare(b.groupName || '', 'de'))
+        .sort((a, b) => Number(a.groupName) - Number(b.groupName))
         .forEach(group => {
           const tr = document.createElement('tr');
           const counts = group.counts || {};

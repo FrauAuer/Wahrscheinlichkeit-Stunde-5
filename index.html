@@ -126,7 +126,7 @@
         </div>
         <div>
           <label for="groupName">Gruppennummer</label>
-          <input id="groupName" type="text" placeholder="1" />
+          <input id="groupName" type="number" min="1" step="1" placeholder="1" />
         </div>
         <br>
       </div>
@@ -245,6 +245,12 @@
       const groupName = groupNameInput.value.trim();
       const counts = getCounts();
       const total = counts.reduce((a, b) => a + b, 0);
+      const groupName = groupNameInput.value.trim();
+
+      if (!/^\d+$/.test(groupName)) {
+        showMessage('Bitte gebt eine gültige Gruppennummer (nur Zahlen) ein.', 'warn');
+        return;
+        }
 
       if (!lessonCode) {
         showMessage('Bitte gebt zuerst das Passwort ein.', 'warn');
@@ -262,12 +268,7 @@
       saveBtn.disabled = true;
       saveBtn.textContent = 'Speichert ...';
 
-      const groupKey = groupName
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, '');
+      const groupKey = groupName;
 
      if (!groupKey) {
         showMessage('Bitte gebt eine gültige Gruppennummer ein.', 'warn');
@@ -299,7 +300,7 @@
 
       try {
         await set(ref(db, `Stunde4/${lessonCode}/groups/${groupKey}`), payload);
-        showMessage(`Gespeichert: Gruppe ${groupName} hat ${total} Ziehungen eingetragen.`, 'ok');
+        showMessage(`Gespeichert: Gruppe ${groupName} hat ${total} Würfe eingetragen.`, 'ok');
       } catch (error) {
         console.error(error);
         showMessage('Speichern nicht möglich. Bitte versucht es erneut oder fragt Frau Auer.', 'warn');
