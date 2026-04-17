@@ -270,7 +270,7 @@
       }
 
       saveBtn.disabled = true;
-      saveBtn.textContent = 'Speichert ...';
+      saveBtn.textContent = 'speichert ...';
 
       const groupKey = groupName;
 
@@ -304,7 +304,7 @@
 
       try {
         await set(ref(db, `Stunde5/${lessonCode}/groups/${groupKey}`), payload);
-        showMessage(`Gespeichert: Gruppe ${groupName} hat ${total} Würfe eingetragen.`, 'ok');
+        showMessage(`gespeichert: Gruppe ${groupName} hat ${total} Würfe eingetragen.`, 'ok');
       } catch (error) {
         console.error(error);
         showMessage('Speichern nicht möglich. Bitte versucht es erneut oder fragt Frau Auer.', 'warn');
