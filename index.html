@@ -198,20 +198,28 @@
     const ids = ['n1','n2','n3','n4','n5','n6','n7','n8','n9','n10','n11'];
     
     ids.forEach(id => {
-  const input = document.getElementById(id);
+      const input = document.getElementById(id);
 
-  input.addEventListener('focus', () => {
-    if (input.value === '0') {
-      input.value = '';
-    }
-  });
+      input.addEventListener('focus', () => {
+        if (input.value === '0') {
+          input.value = '';
+        }
+      });
 
-  input.addEventListener('blur', () => {
-    if (input.value === '') {
-      input.value = '0';
-    }
-  });
-});
+      input.addEventListener('input', () => {
+        let value = input.value.replace(/\D/g, '');
+        value = value.replace(/^0+(?=\d)/, '');
+        input.value = value;
+        updateTotal();
+      });
+
+      input.addEventListener('blur', () => {
+        if (input.value === '') {
+          input.value = '0';
+        }
+        updateTotal();
+      });
+    });
 
     const message = document.getElementById('message');
     const totalText = document.getElementById('totalText');
@@ -235,9 +243,6 @@
       totalText.textContent = `Anzahl der Würfe: ${total}`;
     }
 
-    ids.forEach(id => {
-      document.getElementById(id).addEventListener('input', updateTotal);
-    });
     updateTotal();
 
     saveBtn.addEventListener('click', async () => {
@@ -245,7 +250,6 @@
       const groupName = groupNameInput.value.trim();
       const counts = getCounts();
       const total = counts.reduce((a, b) => a + b, 0);
-      const groupName = groupNameInput.value.trim();
 
       if (!/^\d+$/.test(groupName)) {
         showMessage('Bitte gebt eine gültige Gruppennummer (nur Zahlen) ein.', 'warn');
