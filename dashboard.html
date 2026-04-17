@@ -293,7 +293,7 @@
         off(currentRef, 'value', currentCallback);
       }
 
-      currentRef = ref(db, `Stunde4/${lessonCode}/groups`);
+      currentRef = ref(db, `Stunde5/${lessonCode}/groups`);
       currentCallback = (snapshot) => {
         const data = snapshot.val() || {};
         const groups = Object.values(data);

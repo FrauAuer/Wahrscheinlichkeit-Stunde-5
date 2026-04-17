@@ -303,7 +303,7 @@
       };
 
       try {
-        await set(ref(db, `Stunde4/${lessonCode}/groups/${groupKey}`), payload);
+        await set(ref(db, `Stunde5/${lessonCode}/groups/${groupKey}`), payload);
         showMessage(`Gespeichert: Gruppe ${groupName} hat ${total} Würfe eingetragen.`, 'ok');
       } catch (error) {
         console.error(error);
