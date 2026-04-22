@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wie oft würfelst du welche Augensumme?</title>
+  <title>Mit welcher Augensumme haben wir die größte Gewinnchance?</title>
   <style>
     @font-face {
       font-family: 'FibelNord';
@@ -34,6 +34,8 @@
     body {
       margin: 0;
       font-family: 'FibelNord', Arial, sans-serif;
+      font-size: 1.2rem;
+      line-height: 1.5;
       background: var(--bg);
       color: var(--text);
     }
@@ -80,7 +82,7 @@
       padding: 12px;
       border-radius: 10px;
       border: 1px solid var(--border);
-      font-size: 1rem;
+      font-size: 1.2rem;
       font-family: inherit;
     }
 
@@ -88,7 +90,7 @@
       border: none;
       border-radius: 12px;
       padding: 12px 16px;
-      font-size: 1rem;
+      font-size: 1.2rem;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
@@ -117,11 +119,11 @@
 
     .stat .label {
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 1.15rem;
     }
 
     .stat .value {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 700;
       margin-top: 6px;
     }
@@ -150,6 +152,7 @@
 
     .bar-value {
       font-weight: 700;
+      color: #4b5563;
       min-height: 24px;
     }
 
@@ -196,7 +199,7 @@
 <body>
   <div class="wrap">
     <div class="card">
-      <h1>Wie oft würfelst du welche Augensumme?</h1>
+      <h1>Mit welcher Augensumme haben wir die größte Gewinnchance?</h1>
       <div class="row">
         <div class="field">
           <label for="lessonCode">Passwort</label>
