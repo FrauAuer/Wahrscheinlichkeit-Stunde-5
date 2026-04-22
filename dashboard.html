@@ -5,75 +5,127 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wie oft würfelst du welche Augensumme?</title>
   <style>
+    @font-face {
+      font-family: 'FibelNord';
+      src: url('./FibelNord-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'FibelNord';
+      src: url('./FibelNord-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+    }
+
     :root {
       --bg: #f4f6fa;
       --card: #ffffff;
       --border: #d1d5db;
       --text: #111827;
       --muted: #6b7280;
+      --head: #f3f4f6;
+      --button: #111827;
     }
+
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: 'FibelNord', Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
     }
+
     .wrap {
       max-width: 1100px;
       margin: 0 auto;
       padding: 24px 16px 40px;
     }
+
     .card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 20px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
       margin-bottom: 16px;
     }
-    h1, h2 { margin-top: 0; }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
     .row {
       display: flex;
       gap: 16px;
       flex-wrap: wrap;
       align-items: end;
     }
-    .field { min-width: 240px; flex: 1; }
-    label { display: block; margin-bottom: 6px; font-weight: 700; }
+
+    .field {
+      min-width: 240px;
+      flex: 1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
     input {
       width: 100%;
       padding: 12px;
       border-radius: 10px;
       border: 1px solid var(--border);
       font-size: 1rem;
+      font-family: inherit;
     }
+
     button {
       border: none;
       border-radius: 12px;
       padding: 12px 16px;
       font-size: 1rem;
       font-weight: 700;
+      font-family: inherit;
       cursor: pointer;
-      background: #111827;
+      background: var(--button);
       color: white;
     }
+
     .stats {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
     }
+
     @media (max-width: 800px) {
-      .stats { grid-template-columns: 1fr; }
+      .stats {
+        grid-template-columns: 1fr;
+      }
     }
+
     .stat {
       background: #f9fafb;
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 16px;
     }
-    .stat .label { color: var(--muted); font-size: 0.95rem; }
-    .stat .value { font-size: 1.8rem; font-weight: 700; margin-top: 6px; }
+
+    .stat .label {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .stat .value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
     .chart {
       height: 420px;
       display: flex;
@@ -84,6 +136,7 @@
       border-bottom: 2px solid #111827;
       margin-top: 20px;
     }
+
     .bar-wrap {
       flex: 1;
       max-width: 130px;
@@ -94,57 +147,50 @@
       gap: 8px;
       height: 100%;
     }
-    .bar-value { font-weight: 700; min-height: 24px; }
+
+    .bar-value {
+      font-weight: 700;
+      min-height: 24px;
+    }
+
     .bar {
       width: 100%;
       min-height: 2px;
-      background: linear-gradient(180deg, #4b5563, #111827);
       border-radius: 12px 12px 0 0;
-    }
-    .bar.blue {
       background: linear-gradient(180deg, #60a5fa, #2563eb);
     }
-    .bar-label { font-weight: 700; }
+
+    .bar-label {
+      font-weight: 700;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 12px;
     }
-    th, td {
-      border-bottom: 1px solid var(--border);
+
+    th,
+    td {
+      border: 1px solid var(--border);
       padding: 10px 8px;
       text-align: center;
-      vertical-align: top;
+      vertical-align: middle;
     }
+
     thead th {
+      background: var(--head);
+      font-weight: 700;
+    }
+
+    .small {
+      color: var(--muted);
+    }
+
+    .chart-caption {
       text-align: center;
+      margin-top: 12px;
     }
-
-    tbody td {
-      text-align: center;
-    }
-    
-    /* Nur die äußeren Trennlinien im Tabellenkopf */
-    thead tr:first-child th:first-child {
-      border-right: 2px solid #111827;
-    }
-
-    thead tr:first-child th:last-child {
-      border-left: 2px solid #111827;
-    }
-
-    /* Nur die äußeren Trennlinien im Tabellenkörper */
-    tbody td:nth-child(2) {
-      border-left: 2px solid #111827;
-    }
-
-    tbody td:nth-child(13) {
-      border-left: 2px solid #111827;
-    }
-
-    .small { color: var(--muted); }
-    .hint { color: var(--muted); }
-    .chart-caption { text-align: center; margin-top: 12px; }
   </style>
 </head>
 <body>
@@ -170,7 +216,7 @@
 
     <div class="card">
       <h2>Ergebnisse der Gruppen</h2>
-      <table>
+      <table aria-label="Tabelle der Gruppenergebnisse">
         <thead>
           <tr>
             <th rowspan="2">Gruppennummer</th>
@@ -189,13 +235,13 @@
             <th>10</th>
             <th>11</th>
             <th>12</th>
-            
           </tr>
         </thead>
         <tbody id="groupsBody"></tbody>
       </table>
       <p class="small" id="emptyText">Noch keine Eingaben vorhanden.</p>
     </div>
+
     <div class="card">
       <div class="stats">
         <div class="stat">
@@ -206,7 +252,6 @@
           <div class="label">Anzahl der Würfe</div>
           <div class="value" id="totalRolls">0</div>
         </div>
- 
       </div>
     </div>
   </div>
@@ -223,6 +268,7 @@
     const groupsBody = document.getElementById('groupsBody');
     const emptyText = document.getElementById('emptyText');
 
+    const labels = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
     const urlParams = new URLSearchParams(window.location.search);
     lessonCodeInput.value = urlParams.get('lesson') || '';
 
@@ -232,6 +278,7 @@
     function renderChart(totals) {
       chart.innerHTML = '';
       const max = Math.max(...totals, 1);
+
       totals.forEach((value, index) => {
         const wrap = document.createElement('div');
         wrap.className = 'bar-wrap';
@@ -241,13 +288,11 @@
         valueLabel.textContent = value;
 
         const bar = document.createElement('div');
-        bar.className = 'bar blue';
+        bar.className = 'bar';
         bar.style.height = `${(value / max) * 300 + 6}px`;
 
         const label = document.createElement('div');
         label.className = 'bar-label';
-
-        const labels = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
         label.textContent = labels[index];
 
         wrap.appendChild(valueLabel);
@@ -263,9 +308,9 @@
 
       groups
         .sort((a, b) => Number(a.groupName) - Number(b.groupName))
-        .forEach(group => {
-          const tr = document.createElement('tr');
+        .forEach((group) => {
           const counts = group.counts || {};
+          const tr = document.createElement('tr');
           tr.innerHTML = `
             <td>${group.groupName || '–'}</td>
             <td>${counts['1'] || 0}</td>
@@ -287,7 +332,9 @@
 
     function loadLesson() {
       const lessonCode = lessonCodeInput.value.trim().toLowerCase();
-      if (!lessonCode) return;
+      if (!lessonCode) {
+        return;
+      }
 
       if (currentRef && currentCallback) {
         off(currentRef, 'value', currentCallback);
@@ -297,12 +344,12 @@
       currentCallback = (snapshot) => {
         const data = snapshot.val() || {};
         const groups = Object.values(data);
-
-        const totals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        const totals = Array(11).fill(0);
         let total = 0;
-        groups.forEach(group => {
+
+        groups.forEach((group) => {
           const counts = group.counts || {};
-          for (let i = 1; i <= 11; i++) {
+          for (let i = 1; i <= 11; i += 1) {
             totals[i - 1] += Number(counts[String(i)] || 0);
           }
           total += Number(group.total || 0);
@@ -318,10 +365,11 @@
     }
 
     loadBtn.addEventListener('click', loadLesson);
+
     if (lessonCodeInput.value.trim()) {
       loadLesson();
     } else {
-      renderChart([0,0,0,0,0,0,0,0,0,0,0]);
+      renderChart(Array(11).fill(0));
     }
   </script>
 </body>

@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mit welcher Augensumme haben wir die größte Gewinnchance?</title>
   <style>
+    @font-face {
+      font-family: 'FibelNord';
+      src: url('./FibelNord-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'FibelNord';
+      src: url('./FibelNord-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+    }
+
     :root {
       --bg: #f5f7fb;
       --card: #ffffff;
@@ -15,115 +29,121 @@
       --okbg: #dcfce7;
       --warn: #92400e;
       --warnbg: #fef3c7;
+      --focus: #dbeafe;
+      --head: #f3f4f6;
+      --button: #111827;
     }
+
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: 'FibelNord', Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
     }
+
     .wrap {
       max-width: 780px;
       margin: 0 auto;
       padding: 24px 16px 40px;
     }
+
     .card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 20px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
       margin-bottom: 16px;
     }
-    h1 { margin-top: 0; font-size: 1.8rem; }
-    p { line-height: 1.5; }
+
+    .title {
+      margin: 0;
+      font-size: 1.8rem;
+      line-height: 1.25;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
     }
+
     @media (max-width: 640px) {
-      .grid { grid-template-columns: 1fr; }
+      .grid {
+        grid-template-columns: 1fr;
+      }
     }
+
     label {
       display: block;
       font-weight: 700;
       margin-bottom: 6px;
     }
+
     input {
       width: 100%;
       padding: 12px;
       border: 1px solid var(--border);
       border-radius: 10px;
       font-size: 1rem;
+      font-family: inherit;
     }
-    .dice-grid {
-      display: grid;
-      grid-template-columns: repeat(1, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 12px;
-    }
-    .sum-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .sum-row label {
-      margin-bottom: 0;
-      min-width: 120px;
-    }
-    .sum-row input {
-      flex: 1;
-    }
-    @media (max-width: 640px) {
-      .dice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
+
     button {
       border: none;
       border-radius: 12px;
       padding: 14px 18px;
       font-size: 1rem;
       font-weight: 700;
+      font-family: inherit;
       cursor: pointer;
+      background: var(--button);
+      color: white;
     }
-    .primary { background: #111827; color: white; }
-    .secondary { background: #e5e7eb; color: #111827; }
+
+    button:disabled {
+      opacity: 0.7;
+      cursor: wait;
+    }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 18px;
     }
+
     .note {
       padding: 12px 14px;
       border-radius: 12px;
       margin-top: 12px;
       display: none;
     }
-    .note.ok { background: var(--okbg); color: var(--ok); display: block; }
-    .note.warn { background: var(--warnbg); color: var(--warn); display: block; }
-    .small { color: var(--muted); font-size: 0.95rem; }
+
+    .note.ok {
+      background: var(--okbg);
+      color: var(--ok);
+      display: block;
+    }
+
+    .note.warn {
+      background: var(--warnbg);
+      color: var(--warn);
+      display: block;
+    }
+
     .sum {
       margin-top: 12px;
       font-weight: 700;
     }
-    .topline {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    code {
-      background: #f3f4f6;
-      padding: 2px 6px;
-      border-radius: 6px;
-    }
+
     .input-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 12px;
+      margin-top: 16px;
+      table-layout: fixed;
     }
 
     .input-table th,
@@ -131,31 +151,38 @@
       border: 1px solid var(--border);
       padding: 10px;
       text-align: center;
+      vertical-align: middle;
     }
 
     .input-table th {
-      background: #f3f4f6;
+      background: var(--head);
       font-weight: 700;
     }
+
     .input-table td:first-child {
       font-weight: 700;
-      font-size: 1.05rem;
+      width: 32%;
     }
-    .input-table tbody tr:focus-within {
-      background: #dbeafe;
+
+    .input-table input {
+      text-align: center;
+      min-height: 46px;
     }
+
     .input-table tbody tr:nth-child(even) {
       background: #f9fafb;
+    }
+
+    .input-table tbody tr:focus-within {
+      background: var(--focus);
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="card">
-      <p style="font-size:1.8rem;"><strong>Mit welcher Augensumme haben wir die größte Gewinnchance?</strong></p>
-		
-	  </div>
-     
+      <h1 class="title">Mit welcher Augensumme haben wir die größte Gewinnchance?</h1>
+    </div>
 
     <div class="card">
       <div class="grid">
@@ -165,12 +192,11 @@
         </div>
         <div>
           <label for="groupName">Gruppennummer</label>
-          <input id="groupName" type="number" min="1" step="1" placeholder="1" />
+          <input id="groupName" type="number" min="1" step="1" placeholder="1" inputmode="numeric" />
         </div>
-        <br>
       </div>
-      <div>
-      <table class="input-table">
+
+      <table class="input-table" aria-label="Eingabetabelle für Augensummen">
         <thead>
           <tr>
             <th>Augensumme</th>
@@ -178,26 +204,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>2</td><td><input id="n1" type="number" min="0" step="1" value="0" /></td></tr>
-          <tr><td>3</td><td><input id="n2" type="number" min="0" step="1" value="0" /></td></tr>
-          <tr><td>4</td><td><input id="n3" type="number" min="0" step="1" value="0" /></td></tr>
-          <tr><td>5</td><td><input id="n4" type="number" min="0" step="1" value="0" /></td></tr>
-          <tr><td>6</td><td><input id="n5" type="number" min="0" step="1" value="0" /></td></tr>
-          <tr><td>7</td><td><input id="n6" type="number" min="0" step="1" value="0" /></td></tr>
-          <tr><td>8</td><td><input id="n7" type="number" min="0" step="1" value="0" /></td></tr>
-          <tr><td>9</td><td><input id="n8" type="number" min="0" step="1" value="0" /></td></tr>
-          <tr><td>10</td><td><input id="n9" type="number" min="0" step="1" value="0" /></td></tr>
-          <tr><td>11</td><td><input id="n10" type="number" min="0" step="1" value="0" /></td></tr>
-          <tr><td>12</td><td><input id="n11" type="number" min="0" step="1" value="0" /></td></tr>
+          <tr><td>2</td><td><input id="n1" type="number" min="0" step="1" value="0" inputmode="numeric" /></td></tr>
+          <tr><td>3</td><td><input id="n2" type="number" min="0" step="1" value="0" inputmode="numeric" /></td></tr>
+          <tr><td>4</td><td><input id="n3" type="number" min="0" step="1" value="0" inputmode="numeric" /></td></tr>
+          <tr><td>5</td><td><input id="n4" type="number" min="0" step="1" value="0" inputmode="numeric" /></td></tr>
+          <tr><td>6</td><td><input id="n5" type="number" min="0" step="1" value="0" inputmode="numeric" /></td></tr>
+          <tr><td>7</td><td><input id="n6" type="number" min="0" step="1" value="0" inputmode="numeric" /></td></tr>
+          <tr><td>8</td><td><input id="n7" type="number" min="0" step="1" value="0" inputmode="numeric" /></td></tr>
+          <tr><td>9</td><td><input id="n8" type="number" min="0" step="1" value="0" inputmode="numeric" /></td></tr>
+          <tr><td>10</td><td><input id="n9" type="number" min="0" step="1" value="0" inputmode="numeric" /></td></tr>
+          <tr><td>11</td><td><input id="n10" type="number" min="0" step="1" value="0" inputmode="numeric" /></td></tr>
+          <tr><td>12</td><td><input id="n11" type="number" min="0" step="1" value="0" inputmode="numeric" /></td></tr>
         </tbody>
       </table>
-      </div>
-      <br>
+
       <div class="sum" id="totalText">Anzahl der Würfe: 0</div>
 
       <div class="actions">
-        <button class="primary" id="saveBtn">senden</button>
-        
+        <button id="saveBtn">senden</button>
       </div>
 
       <div id="message" class="note"></div>
@@ -210,9 +234,29 @@
 
     const lessonCodeInput = document.getElementById('lessonCode');
     const groupNameInput = document.getElementById('groupName');
-    const ids = ['n1','n2','n3','n4','n5','n6','n7','n8','n9','n10','n11'];
-    
-    ids.forEach(id => {
+    const message = document.getElementById('message');
+    const totalText = document.getElementById('totalText');
+    const saveBtn = document.getElementById('saveBtn');
+    const ids = ['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 'n10', 'n11'];
+
+    const urlParams = new URLSearchParams(window.location.search);
+    lessonCodeInput.value = urlParams.get('lesson') || '';
+
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = `note ${type}`;
+    }
+
+    function getCounts() {
+      return ids.map((id) => Math.max(0, Number(document.getElementById(id).value) || 0));
+    }
+
+    function updateTotal() {
+      const total = getCounts().reduce((sum, value) => sum + value, 0);
+      totalText.textContent = `Anzahl der Würfe: ${total}`;
+    }
+
+    ids.forEach((id) => {
       const input = document.getElementById(id);
 
       input.addEventListener('focus', () => {
@@ -236,63 +280,31 @@
       });
     });
 
-    const message = document.getElementById('message');
-    const totalText = document.getElementById('totalText');
-    const saveBtn = document.getElementById('saveBtn');
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const lessonFromUrl = urlParams.get('lesson') || '';
-    lessonCodeInput.value = lessonFromUrl;
-
-    function showMessage(text, type) {
-      message.textContent = text;
-      message.className = 'note ' + type;
-    }
-
-    function getCounts() {
-      return ids.map(id => Math.max(0, Number(document.getElementById(id).value) || 0));
-    }
-
-    function updateTotal() {
-      const total = getCounts().reduce((a, b) => a + b, 0);
-      totalText.textContent = `Anzahl der Würfe: ${total}`;
-    }
-
     updateTotal();
 
     saveBtn.addEventListener('click', async () => {
       const lessonCode = lessonCodeInput.value.trim().toLowerCase();
       const groupName = groupNameInput.value.trim();
       const counts = getCounts();
-      const total = counts.reduce((a, b) => a + b, 0);
-
-      if (!/^\d+$/.test(groupName)) {
-        showMessage('Bitte gebt eine gültige Gruppennummer (nur Zahlen) ein.', 'warn');
-        return;
-        }
+      const total = counts.reduce((sum, value) => sum + value, 0);
 
       if (!lessonCode) {
         showMessage('Bitte gebt zuerst das Passwort ein.', 'warn');
         return;
       }
+
       if (!groupName) {
         showMessage('Bitte gebt eine Gruppennummer ein.', 'warn');
         return;
       }
-      if (total === 0) {
-        showMessage('Bitte tragt mindestens eine Zahl größer als 0 ein.', 'warn');
+
+      if (!/^\d+$/.test(groupName)) {
+        showMessage('Bitte gebt eine gültige Gruppennummer (nur Zahlen) ein.', 'warn');
         return;
       }
 
-      saveBtn.disabled = true;
-      saveBtn.textContent = 'speichert ...';
-
-      const groupKey = groupName;
-
-     if (!groupKey) {
-        showMessage('Bitte gebt eine gültige Gruppennummer ein.', 'warn');
-        saveBtn.disabled = false;
-        saveBtn.textContent = 'senden';
+      if (total === 0) {
+        showMessage('Bitte tragt mindestens eine Zahl größer als 0 ein.', 'warn');
         return;
       }
 
@@ -310,16 +322,19 @@
           '8': counts[7],
           '9': counts[8],
           '10': counts[9],
-          '11': counts[10],
+          '11': counts[10]
         },
         total,
         updatedAt: Date.now(),
         updatedAtServer: serverTimestamp()
       };
 
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'speichert ...';
+
       try {
-        await set(ref(db, `Stunde5/${lessonCode}/groups/${groupKey}`), payload);
-        showMessage(`gespeichert`, 'ok');
+        await set(ref(db, `Stunde5/${lessonCode}/groups/${groupName}`), payload);
+        showMessage('gespeichert', 'ok');
       } catch (error) {
         console.error(error);
         showMessage('Speichern nicht möglich. Bitte versucht es erneut oder fragt Frau Auer.', 'warn');
